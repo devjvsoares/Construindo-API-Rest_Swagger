@@ -1,0 +1,15 @@
+{
+  "name": "pfs2",
+  "version": "1.0.0",
+  "description": "Backend para disciplina PFS2",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
