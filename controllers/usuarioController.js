@@ -2,7 +2,8 @@ export default class UsuarioController{
     
     listar(req,res){
         try{
-            let lista = [{nome: "João Vitor", idade: "20"}];
+            let usuario = UsuarioController();
+            let lista = usuario.listar();
             //res.status(200).json({ lista }); //requisição 200 = para retornar acertos/tudo certo
             res.status(500).json({msg: "Erro!"}); //requisição 500 = para retornar erros
         }
