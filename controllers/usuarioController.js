@@ -14,19 +14,20 @@ export default class UsuarioController{
         }
     }
 
-    obter(req,res){
-
-    }
-
     cadastrar(req,res){
         try{
             if(req.body){
                 let {nome, email} = req.body;
-                let entidade = new UsuarioEntity(nome, email);
-                let repo = new UsuarioRepository();
-                repo.cadastrar(entidade);
-                return res.status(201).json({msg: "Usuário Cadastrado!"});
-            }else{
+                if(nome && email){
+                    let entidade = new UsuarioEntity(nome, email);
+                    let repo = new UsuarioRepository();
+                    repo.cadastrar(entidade);
+                    return res.status(201).json({msg: "Usuário Cadastrado!"});
+                }
+                else
+                    res.status(400).json({msg: "O corpo da requisição não está adequado!"});
+            }
+            else{
                 res.status(400).json({msg: "Parametros Inválidos!"});
             }
 
@@ -34,6 +35,10 @@ export default class UsuarioController{
         catch(ex){
            return res.status(500).json({msg: ex.message});
         }
+    }
+
+    obter(req,res){
+        
     }
 
     alterar(req,res){

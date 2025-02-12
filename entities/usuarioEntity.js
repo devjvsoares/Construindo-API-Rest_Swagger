@@ -2,8 +2,18 @@
 
 export default class UsuarioEntity {
 
+    #id;
     #nome;
     #email;
+
+
+    get id(){
+        return this.#id;
+    }
+
+    set id(value){
+        this.#id = value;
+    }
 
     get nome(){
         return this.#nome;
@@ -21,13 +31,15 @@ export default class UsuarioEntity {
         this.#email = value;
     }
 
-    constructor(nome, email){
+    constructor(id, nome, email){
+        this.#id = id;
         this.#nome = nome;
         this.#email = email;
     }
 
     toJSON(){
         return {
+            id: this.#id,
             nome: this.#nome,
             email: this.#email
         }
