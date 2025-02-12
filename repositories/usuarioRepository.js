@@ -19,6 +19,7 @@ export default class UsuarioRepository{
         let lista = [];
         for(let i=0; i<listaBanco.length ; i++){
             lista.push(new UsuarioEntity(
+                listaBanco[i].colunaId,
                 listaBanco[i].colunaNome,
                 listaBanco[i].colunaEmail
             ));
@@ -29,8 +30,29 @@ export default class UsuarioRepository{
 
     cadastrar(entidade) {
         listaBanco.push({
+            colunaId: entidade.id,
             colunaEmail: entidade.email,
             colunaNome: entidade.nome
         })
+    }
+
+    obter(codigo){
+        return listaBanco.filter(x => x.colunaId == codigo);
+    }
+
+    excluir(codigo){
+        listaBanco = listaBanco.filter(x => x.colunaId != codigo);
+    }
+
+    alterar(entidade){
+        for(let i=0; i<listaBanco.length; i++){
+            if(listaBanco[i].colunaId == entidade.id){
+                listaBanco[i] = {
+                    colunaId: entidade.id,
+                    colunaNome: entidade.nome,
+                    colunaEmail: entidade.email
+                };
+            }
+        }
     }
 }
