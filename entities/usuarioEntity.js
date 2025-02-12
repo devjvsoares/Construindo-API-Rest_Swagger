@@ -26,5 +26,10 @@ export default class UsuarioEntity {
         this.#email = email;
     }
 
-    
+    toJSON(){
+        return {
+            nome: this.#nome,
+            email: this.#email
+        }
+    }
 }

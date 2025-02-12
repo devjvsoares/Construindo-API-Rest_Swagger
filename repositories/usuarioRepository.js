@@ -1,3 +1,5 @@
+import UsuarioEntity from "../entities/usuarioEntity.js";
+
 let listaBanco = [
     {
         colunaNome: "João Vitor",
@@ -12,10 +14,21 @@ let listaBanco = [
 export default class UsuarioRepository{
 
     listar() {
+        let lista = [];
+        for(let i=0; i<listaBanco.length ; i++){
+            lista.push(new UsuarioEntity(
+                listaBanco[i].colunaNome,
+                listaBanco[i].colunaEmail
+            ));
 
+        }
+        return lista;
     }
 
-    cadastrar() {
-
+    cadastrar(entidade) {
+        listaBanco.push({
+            colunaEmail: entidade.email,
+            colunaNome: entidade.nome
+        })
     }
 }
