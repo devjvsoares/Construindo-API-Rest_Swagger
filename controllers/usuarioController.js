@@ -4,8 +4,7 @@ export default class UsuarioController{
         try{
             let usuario = UsuarioController();
             let lista = usuario.listar();
-            //res.status(200).json({ lista }); //requisição 200 = para retornar acertos/tudo certo
-            res.status(500).json({msg: "Erro!"}); //requisição 500 = para retornar erros
+            res.status(200).json({lista}); //requisição 200 = para retornar acertos/tudo certo
         }
         catch(ex){
             res.status(500).json({msg: ex.message});
