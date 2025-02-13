@@ -13,6 +13,10 @@
   "paths": {
     "/usuarios/": {
       "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Endpoint para listar todos os usuários do banco de dados",
         "description": "",
         "responses": {
           "200": {
@@ -24,6 +28,10 @@
         }
       },
       "post": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Cadastra um usuário no banco de dados",
         "description": "",
         "responses": {
           "201": {
@@ -53,66 +61,13 @@
             }
           }
         }
-      }
-    },
-    "/usuarios/{codigo}": {
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "codigo",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "codigo",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
       },
       "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "codigo",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+        "tags": [
+          "Usuários"
         ],
+        "summary": "Atualiza um usuário especificado através de um parâmetro",
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -142,6 +97,61 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/usuarios/{codigo}": {
+      "delete": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Exclui um usuário especificado através de um parametro no banco de dados",
+        "description": "",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Retorna um usuário especificado através de um parâmetro",
+        "description": "",
+        "parameters": [
+          {
+            "name": "codigo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
