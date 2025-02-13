@@ -10,3 +10,4 @@ const doc = {
 
 const routes = ['./server.js']
 const outputJson = './swaggerOutPut.json';
+swaggerAutogen({openapi: '3.0.0'})(outputJson, routes, doc);
