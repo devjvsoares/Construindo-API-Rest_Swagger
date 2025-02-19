@@ -2,11 +2,16 @@ import UsuarioEntity from "../entities/usuarioEntity.js";
 import UsuarioRepository from "../repositories/usuarioRepository.js";
 
 export default class UsuarioController{
+
+    #repo;
+
+    constructor(){
+        this.#repo = new UsuarioRepository();
+    }
     
     listar(req,res){
         try{
-            let usuario =new UsuarioRepository();
-            let lista = usuario.listar();
+            let lista = this.#repo.listar();
             res.status(200).json({lista}); //requisição 200 = para retornar acertos/tudo certo
         }
         catch(ex){
@@ -19,9 +24,8 @@ export default class UsuarioController{
             if(req.body){
                 let {nome, email} = req.body;
                 if(nome && email){
-                    let entidade = new UsuarioEntity(new Date().getTime(),nome, email);
-                    let repo = new UsuarioRepository();
-                    repo.cadastrar(entidade);
+                    let entidade = new UsuarioEntity(new Date().getTime(), nome, email);
+                    this.#repo.cadastrar(entidade);
                     return res.status(201).json({msg: "Usuário Cadastrado!"});
                 }
                 else
@@ -40,8 +44,7 @@ export default class UsuarioController{
     obter(req,res){
         try{
             let {codigo} = req.params;
-            let repo = new UsuarioRepository();
-            var lista = repo.obter(codigo);
+            var lista = this.#repo.obter(codigo);
             if(lista.length == 0)
                 return res.status(404).json({msg: "Id não encontrado!"});
             return res.status(200).json(lista);
@@ -59,8 +62,7 @@ export default class UsuarioController{
                 entidade.id = id;
                 entidade.nome = nome;
                 entidade.email = email;
-                let repo = new UsuarioRepository();
-                repo.alterar(entidade);
+                this.#repo.alterar(entidade);
                 return res.status(200).json({msg: "Usuário alterado!"});
             }
             else{
@@ -75,8 +77,7 @@ export default class UsuarioController{
     excluir(req,res){
         try{
             let {codigo} = req.params;
-            let repo = new UsuarioRepository();
-            repo.excluir(codigo);
+            this.#repo.excluir(codigo);
             return res.status(200).json({msg: "Usuário excluído com sucesso!"});
         }
         catch(ex){
