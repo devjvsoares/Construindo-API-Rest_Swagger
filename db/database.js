@@ -1,6 +1,6 @@
-var mysql = require('mysql2');
+import mysql from 'mysql2'
 
-class Database {
+export default class Database {
 
     #conexao;
 
@@ -53,8 +53,3 @@ class Database {
     }
 
 }
-
-module.exports = Database;
-
-
-
