@@ -49,6 +49,15 @@
                   },
                   "email": {
                     "example": "any"
+                  },
+                  "ativo": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  },
+                  "perfil": {
+                    "example": "any"
                   }
                 }
               }
@@ -83,6 +92,15 @@
                     "example": "any"
                   },
                   "email": {
+                    "example": "any"
+                  },
+                  "ativo": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  },
+                  "perfil": {
                     "example": "any"
                   }
                 }

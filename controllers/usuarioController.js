@@ -1,3 +1,4 @@
+import PerfilEntity from "../entities/perfilEntity.js";
 import UsuarioEntity from "../entities/usuarioEntity.js";
 import UsuarioRepository from "../repositories/usuarioRepository.js";
 
@@ -9,18 +10,20 @@ export default class UsuarioController {
         this.#repo = new UsuarioRepository();
     }
 
-    listar(req, res) {
-        let lista = this.#repo.listar();
+    async listar(req, res) {
+        let lista = await this.#repo.listar();
         res.status(200).json({ lista }); //requisição 200 = para retornar acertos/tudo certo
     }
 
-    cadastrar(req, res) {
+    async cadastrar(req, res) {
         if (req.body) {
-            let { nome, email } = req.body;
-            if (nome && email) {
-                let entidade = new UsuarioEntity(new Date().getTime(), nome, email);
-                this.#repo.cadastrar(entidade);
-                return res.status(201).json({ msg: "Usuário Cadastrado!" });
+            let { nome, email, ativo, senha, perfil } = req.body;
+            if (nome && email && ativo && senha && perfil.id > 0) {
+                let entidade = new UsuarioEntity(0, nome, email, ativo, senha, new PerfilEntity(perfil.id));
+                if(await this.#repo.cadastrar(entidade))
+                    return res.status(201).json({ msg: "Usuário Cadastrado!" });
+                else
+                    throw new Error("Erro ao inserir Usuário no banco de dados!");
             }
             else
                 res.status(400).json({ msg: "O corpo da requisição não está adequado!" });
@@ -30,33 +33,40 @@ export default class UsuarioController {
         }
     }
 
-    obter(req, res) {
+    async obter(req, res) {
         let { codigo } = req.params;
-        var lista = this.#repo.obter(codigo);
+        var lista = await this.#repo.obter(codigo);
         if (lista.length == 0)
             return res.status(404).json({ msg: "Id não encontrado!" });
         return res.status(200).json(lista);
     }
 
-    alterar(req, res) {
+    async alterar(req, res) {
         let entidade = new UsuarioEntity();
-        let { id, nome, email } = req.body;
-        if (id && nome && email) {
+        let { id, nome, email, ativo, senha, perfil } = req.body;
+        if (id > 0 && nome && email && ativo && senha && perfil.id > 0) {
             entidade.id = id;
             entidade.nome = nome;
             entidade.email = email;
-            this.#repo.alterar(entidade);
-            return res.status(200).json({ msg: "Usuário alterado!" });
+            entidade.ativo = ativo;
+            entidade.senha = senha;
+            entidade.perfil = perfil;
+            if(await this.#repo.alterar(entidade))
+                return res.status(200).json({ msg: "Usuário alterado!" });
+            else
+            throw new Error("Erro ao alterar usuário no banco de dados!")
         }
         else {
             return res.status(400).json({ msg: "Parâmetros inválidos!" });
         }
     }
 
-    excluir(req, res) {
+    async excluir(req, res) {
         let { codigo } = req.params;
-        this.#repo.excluir(codigo);
-        return res.status(200).json({ msg: "Usuário excluído com sucesso!" });
+        if(await this.#repo.excluir(codigo))
+            return res.status(200).json({ msg: "Usuário excluído com sucesso!" });
+        else
+            throw new Error("Erro ao deletar usuário do banco de dados!");
     }
 
 }
