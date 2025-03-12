@@ -1,6 +1,7 @@
+import BaseEntity from "./baseEntity.js";
 
 
-export default class UsuarioEntity {
+export default class UsuarioEntity extends BaseEntity {
 
     #id;
     #nome;
@@ -60,6 +61,7 @@ export default class UsuarioEntity {
 
 
     constructor(id, nome, email, ativo, senha, perfil){
+        super();
         this.#id = id;
         this.#nome = nome;
         this.#email = email;
@@ -68,13 +70,4 @@ export default class UsuarioEntity {
         this.#perfil = perfil;
     }
 
-    toJSON(){
-        return {
-            id: this.#id,
-            nome: this.#nome,
-            email: this.#email,
-            ativo: this.#ativo,
-            perfil: this.#perfil.toJSON()
-        };
-    }
 }

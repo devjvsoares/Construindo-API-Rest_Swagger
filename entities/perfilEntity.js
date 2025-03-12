@@ -1,6 +1,7 @@
+import BaseEntity from "./baseEntity.js";
 
 
-export default class PerfilEntity {
+export default class PerfilEntity extends BaseEntity {
     #id;
     #descricao;
 
@@ -21,14 +22,9 @@ export default class PerfilEntity {
     }
 
     constructor(id, descricao){
+        super();
         this.#id = id;
         this.#descricao = descricao;
     }
 
-    toJSON(){
-        return {
-            id: this.#id,
-            descricao: this.#descricao
-        };
-    }
 }

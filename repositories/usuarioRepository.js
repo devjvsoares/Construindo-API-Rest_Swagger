@@ -74,5 +74,20 @@ export default class UsuarioRepository{
     let params = [entidade.nome, entidade.email, entidade.ativo, entidade.senha, entidade.perfil.id, entidade.id];
 
     let result = await this.#banco.ExecutaComandoNonQuery(sql, params);
+    
+    return result;
+    }
+
+    async validarAcesso(email, senha){
+        let sql = `select * from tb_usuario where usu_email = ? and usu_senha = ? and usu_ativo = '1'`;
+        let params = [email, senha];
+        let result = await this.#banco.ExecutaComando(sql, params);
+
+        if(result.length > 0){
+            let row = result [0];
+            return new UsuarioEntity(row["usu_id"], row["usu_nome"], row["usu_email"], row["usu_ativo"], row["usu_senha"], new PerfilEntity(row["per_id"]));
+        }
+
+        return null;
     }
 }

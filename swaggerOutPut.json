@@ -18,9 +18,21 @@
         ],
         "summary": "Endpoint para listar todos os usuários do banco de dados",
         "description": "",
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       },
@@ -39,27 +51,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "nome": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  },
-                  "ativo": {
-                    "example": "any"
-                  },
-                  "senha": {
-                    "example": "any"
-                  },
-                  "perfil": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/usuario"
               }
             }
           }
@@ -80,30 +76,11 @@
           }
         },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "example": "any"
-                  },
-                  "nome": {
-                    "example": "any"
-                  },
-                  "email": {
-                    "example": "any"
-                  },
-                  "ativo": {
-                    "example": "any"
-                  },
-                  "senha": {
-                    "example": "any"
-                  },
-                  "perfil": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/usuario"
               }
             }
           }
@@ -155,6 +132,221 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/imovel": {
+      "get": {
+        "tags": [
+          "Imóveis"
+        ],
+        "summary": "Endpoint para listar todos os imóveis do banco de dados",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Imóveis"
+        ],
+        "summary": "Endpoint para cadastrar imóveis no banco de dados",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/imovel"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Imóveis"
+        ],
+        "summary": "Endpoint para alterar todos os imóveis do banco de dados",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/imovel"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imovel/{id}": {
+      "get": {
+        "tags": [
+          "Imóveis"
+        ],
+        "summary": "Endpoint para obter um imóvel do banco de dados",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Imóveis"
+        ],
+        "summary": "Endpoint para excluir todos os imóveis do banco de dados",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/auth/token": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "senha": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "imovel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 0
+          },
+          "descricao": {
+            "type": "string",
+            "example": "Apartamento Beira Mar"
+          },
+          "endereco": {
+            "type": "string",
+            "example": "Rua dos Bobos, 0"
+          },
+          "cep": {
+            "type": "string",
+            "example": "190720-38"
+          },
+          "bairro": {
+            "type": "string",
+            "example": "Bairro Um"
+          },
+          "cidade": {
+            "type": "string",
+            "example": "Presidente Prudente-SP"
+          },
+          "valor": {
+            "type": "number",
+            "example": 1220.5
+          },
+          "disponivel": {
+            "type": "string",
+            "example": "S"
+          }
+        }
+      },
+      "usuario": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Fulano de Tal"
+          },
+          "email": {
+            "type": "string",
+            "example": "fulanodetal@gmail.com"
+          },
+          "ativo": {
+            "type": "string",
+            "example": "S"
+          },
+          "senha": {
+            "type": "string",
+            "example": "abc123"
+          },
+          "perfil": {
+            "type": "object",
+            "properties": {}
           }
         }
       }
